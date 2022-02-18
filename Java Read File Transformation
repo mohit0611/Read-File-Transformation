@@ -1,0 +1,43 @@
+import java.io.*;
+import java.util.*;
+  
+public class Main {
+    final static String path = "/home/knoldus/Desktop/Transformation.txt";
+    public static void main(String[] args) {
+        Map<String, String> file1Map = HashMapFromTextFile();
+        for (Map.Entry<String, String> entry :fileMap.entrySet()) {
+            System.out.println(entry.getKey() + " : " + entry.getValue());
+        }
+    }
+  
+    public static Map<String, String> HashMapFromTextFile() {
+        Map<String, String> map= new HashMap<String, String>();
+        BufferedReader bufferReader1 = null;
+          try {
+            File file1 = new File(path);
+            bufferReader1 = new BufferedReader(new FileReader(file));
+            String line = null;
+            while ((line = bufferReader1.readLine()) != null) {
+                String[] parts = line.split(":");
+                String names = parts[0].trim();
+                String numbers = parts[1].trim();
+                
+                if (!names.equals("") && !numbers.equals(""))
+                    map.put(names, numbers);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (bufferReader1 != null) {
+                try {
+                    bufferReader1.close();
+                }
+                catch (Exception e) {
+                };
+            }
+        }
+        return map;
+    }
+}
